@@ -5,17 +5,32 @@
  */
 package trab2_apro3;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author rodrigo
  */
 public class Elevador {
     
-    private int base, passo;
+    private int base, passo, numero;
+    private ArrayList<Andar> andares;
 
     public Elevador(int base, int passo) {
         this.base = base;
         this.passo = passo;
+        this.andares = new ArrayList<>();
+    }
+    
+    public void addAndar(Andar a) {
+        if(!andares.contains(a)) {
+            this.andares.add(a);
+            a.addElevador(this);
+        }
+    }
+
+    public ArrayList<Andar> getAndares() {
+        return andares;
     }
 
     public int getBase() {
@@ -33,6 +48,15 @@ public class Elevador {
     public void setPasso(int passo) {
         this.passo = passo;
     }
+
+    public int getNumero() {
+        return numero;
+    }
+
+    public void setNumero(int numero) {
+        this.numero = numero;
+    }
+    
     
     
     

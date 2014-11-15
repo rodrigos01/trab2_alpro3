@@ -13,28 +13,42 @@ import java.util.ArrayList;
  */
 public class Andar {
     
-    private ArrayList<Andar> conexoes;
+    private ArrayList<Conexao> conexoes;
+    private ArrayList<Elevador> elevadores;
     private int numero;
 
     public Andar(int n) {
         
         numero = n;
-        conexoes = new ArrayList();
+        conexoes = new ArrayList<>();
+        elevadores = new ArrayList<>();
         
     }
 
-    public ArrayList<Andar> getConexoes() {
+    public ArrayList<Conexao> getConexoes() {
         return conexoes;
+    }
+
+    public ArrayList<Elevador> getElevadores() {
+        return elevadores;
     }
 
     public int getNumero() {
         return numero;
     }
     
-    public void addConexao(Andar a) {
-        if(!conexoes.contains(a)) {
-            conexoes.add(a);
-            a.addConexao(this);
+    public void addConexao(Elevador e, Andar a) {
+        Conexao c = new Conexao(e, a);
+        if(!a.equals(this) && !conexoes.contains(c)) {
+            conexoes.add(c);
+            a.addConexao(e, this);
+        }
+    }
+    
+    public void addElevador(Elevador e) {
+        if(!elevadores.contains(e)) {
+            elevadores.add(e);
+            e.addAndar(this);
         }
     }
     
