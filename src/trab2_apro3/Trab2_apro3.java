@@ -26,32 +26,42 @@ public class Trab2_apro3 {
     public static void main(String[] args) {
         
         try {
-            BufferedReader reader = new BufferedReader(new FileReader("teste"));
-            String[] line1 = reader.readLine().split(" ");
-            int andares = Integer.parseInt(line1[0]);
-            int numElevadores = Integer.parseInt(line1[1]);
             
-            String[] line2 = reader.readLine().split(" ");
-            int saida = Integer.parseInt(line2[0]);
-            int chegada = Integer.parseInt(line2[1]);
+            File casosDir = new File("casos178");
+            File[] casos = casosDir.listFiles();
             
-            ArrayList<Elevador> elevadores = new ArrayList<>();
-            
-            String linha;
-            
-            for (int i = 1; (linha = reader.readLine()) != null && i<= numElevadores; i++) {
-                System.out.println(linha);
-                String elevador[] = linha.split(" ");
-                elevadores.add(new Elevador(Integer.parseInt(elevador[0]), Integer.parseInt(elevador[1])));
-            }
-            System.out.println("Elevadores lidos");
+            for(File caso: casos) {
+                
+                if(caso.isDirectory())
+                    continue;
+                
+                BufferedReader reader = new BufferedReader(new FileReader(caso));
+                String[] line1 = reader.readLine().split(" ");
+                int andares = Integer.parseInt(line1[0]);
+                int numElevadores = Integer.parseInt(line1[1]);
 
-            Torre babel = new Torre(andares, elevadores);
-            
-            if(babel.existeCaminho(saida, chegada)) {
-                System.out.println("É possivel");
-            }else {
-                System.out.println("não é possivel");
+                String[] line2 = reader.readLine().split(" ");
+                int saida = Integer.parseInt(line2[0]);
+                int chegada = Integer.parseInt(line2[1]);
+
+                ArrayList<Elevador> elevadores = new ArrayList<>();
+
+                String linha;
+
+                for (int i = 1; (linha = reader.readLine()) != null && i<= numElevadores; i++) {
+                    //System.out.println(linha);
+                    String elevador[] = linha.split(" ");
+                    elevadores.add(new Elevador(Integer.parseInt(elevador[0]), Integer.parseInt(elevador[1])));
+                }
+                System.out.println("Elevadores lidos");
+
+                Torre babel = new Torre(andares, elevadores);
+
+                if(babel.existeCaminho(saida, chegada)) {
+                    System.out.println("É possivel");
+                }else {
+                    System.out.println("não é possivel");
+                }
             }
         } catch (IOException ex) {
             Logger.getLogger(Trab2_apro3.class.getName()).log(Level.SEVERE, null, ex);
